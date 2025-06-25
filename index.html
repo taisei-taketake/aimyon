@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>あいみょん - notOfficial Website</title>
+    <title>あいみょん - Official Website</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +16,127 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* カスタムカーソル */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.clicked {
+            transform: scale(2);
+        }
+
+        /* マジカルパーティクル */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: particleFloat 4s ease-out forwards;
+        }
+
+        /* 隠しメッセージ */
+        .secret-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: #4ecdc4;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            z-index: 1000;
+            border: 2px solid #4ecdc4;
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+        }
+
+        .secret-message.show {
+            opacity: 1;
+            visibility: visible;
+            animation: messageGlow 2s ease-in-out infinite;
+        }
+
+        /* イースターエッグ - コナミコード */
+        .konami-activated {
+            animation: rainbowBackground 2s ease-in-out infinite !important;
+        }
+
+        /* 音楽可視化バー */
+        .music-visualizer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 3px;
+            z-index: 100;
+        }
+
+        .bar {
+            width: 4px;
+            background: linear-gradient(to top, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        .bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
+        .bar:nth-child(3) { height: 45px; animation-delay: 0.2s; }
+        .bar:nth-child(4) { height: 30px; animation-delay: 0.3s; }
+        .bar:nth-child(5) { height: 50px; animation-delay: 0.4s; }
+        .bar:nth-child(6) { height: 25px; animation-delay: 0.5s; }
+        .bar:nth-child(7) { height: 40px; animation-delay: 0.6s; }
+
+        /* スクロール進行バー */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* 3Dカード効果 */
+        .card-3d {
+            perspective: 1000px;
+        }
+
+        .card-3d .album-card, .card-3d .song-item {
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+
+        .card-3d .album-card:hover, .card-3d .song-item:hover {
+            transform: rotateY(10deg) rotateX(10deg) translateZ(20px);
+        }
+
+        /* ダブルクリックでサプライズ */
+        .surprise-mode {
+            animation: surpriseShake 0.5s ease-in-out;
+        }
+
+        /* 長押しでハート爆発 */
+        .heart-explosion {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: heartExplode 2s ease-out forwards;
         }
 
         .hero {
@@ -251,6 +372,53 @@
             }
         }
 
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-100px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(0);
+            }
+        }
+
+        @keyframes messageGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(78, 205, 196, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(78, 205, 196, 0.8), 0 0 80px rgba(255, 107, 107, 0.5); }
+        }
+
+        @keyframes rainbowBackground {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.5); }
+        }
+
+        @keyframes surpriseShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes heartExplode {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(3) rotate(180deg) translateY(-100px);
+            }
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             33% { transform: translateY(-20px) rotate(10deg); }
@@ -267,6 +435,30 @@
     </style>
 </head>
 <body>
+    <!-- カスタムカーソル -->
+    <div class="custom-cursor"></div>
+    
+    <!-- スクロール進行バー -->
+    <div class="scroll-progress"></div>
+    
+    <!-- 隠しメッセージ -->
+    <div class="secret-message" id="secretMessage">
+        <h2>🎉 秘密を発見しました！ 🎉</h2>
+        <p>あなたはあいみょんの真のファンですね！<br>
+        この隠しメッセージを見つけるなんて素晴らしい！</p>
+        <button onclick="closeSecret()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #4ecdc4; border: none; border-radius: 5px; color: white;">閉じる</button>
+    </div>
+
+    <!-- 音楽ビジュアライザー -->
+    <div class="music-visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
     <section class="hero">
         <div class="floating-elements">
             <div class="music-note">♪</div>
@@ -295,7 +487,7 @@
 
     <section class="section discography">
         <h2>主要作品</h2>
-        <div class="albums-grid">
+        <div class="albums-grid card-3d">
             <div class="album-card">
                 <div class="album-cover">🌼</div>
                 <h3>マリーゴールド</h3>
@@ -323,7 +515,7 @@
             </div>
             <div class="album-card">
                 <div class="album-cover">🎭</div>
-                <h3>貴方解剖純愛歌</h3>
+                <h3>貴方解剖純愛歌～死ね～</h3>
                 <p>複雑な感情を表現したユニークなタイトルの楽曲</p>
             </div>
             <div class="album-card">
@@ -351,13 +543,13 @@
 
     <section class="section">
         <h2>楽曲詳細</h2>
-        <div class="song-details">
+        <div class="song-details card-3d">
             <div class="song-item">
                 <h3>🌸 ハルノヒ</h3>
                 <p>春の暖かさと新しい始まりを歌った楽曲。日常の中の小さな幸せを見つけることの大切さを優しいメロディーに乗せて表現している。</p>
             </div>
             <div class="song-item">
-                <h3>🏃‍♀️ 会いに行くのに</h3>
+                <h3>🏃‍♀️ 会いに行く</h3>
                 <p>大切な人に会いたい気持ちを素直に歌った楽曲。距離を超えた想いの強さが印象的で、多くのリスナーの心に響く。</p>
             </div>
             <div class="song-item">
@@ -414,13 +606,140 @@
             <a href="#" class="social-link">📱</a>
             <a href="#" class="social-link">💿</a>
         </div>
-        <p>&copy; 2025 あいみょん notOfficial Website. All rights reserved.</p>
+        <p>&copy; 2025 あいみょん NOTOfficial Website. All rights reserved.</p>
     </footer>
 
     <script>
-        // スムーズスクロール効果
+        // カスタムカーソル
+        const cursor = document.querySelector('.custom-cursor');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        // クリック時のパーティクル効果
+        document.addEventListener('click', (e) => {
+            cursor.classList.add('clicked');
+            setTimeout(() => cursor.classList.remove('clicked'), 200);
+            
+            createParticles(e.clientX, e.clientY);
+        });
+
+        // パーティクル生成
+        function createParticles(x, y) {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57'];
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.width = Math.random() * 8 + 4 + 'px';
+                particle.style.height = particle.style.width;
+                
+                const randomX = (Math.random() - 0.5) * 200;
+                const randomY = Math.random() * 200 + 50;
+                particle.style.setProperty('--randomX', randomX + 'px');
+                particle.style.setProperty('--randomY', randomY + 'px');
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 4000);
+            }
+        }
+
+        // スクロール進行バー
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const maxHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrolled / maxHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = progress + '%';
+        });
+
+        // コナミコード検出
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.classList.add('konami-activated');
+                showSecretMessage();
+                setTimeout(() => document.body.classList.remove('konami-activated'), 5000);
+            }
+        });
+
+        // 隠しメッセージ表示
+        function showSecretMessage() {
+            document.getElementById('secretMessage').classList.add('show');
+        }
+
+        function closeSecret() {
+            document.getElementById('secretMessage').classList.remove('show');
+        }
+
+        // トリプルクリックでサプライズ
+        let clickCount = 0;
+        let clickTimer = null;
+
+        document.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 1) {
+                clickTimer = setTimeout(() => {
+                    clickCount = 0;
+                }, 500);
+            } else if (clickCount === 3) {
+                clearTimeout(clickTimer);
+                clickCount = 0;
+                document.body.classList.add('surprise-mode');
+                setTimeout(() => document.body.classList.remove('surprise-mode'), 500);
+                
+                // ランダムな位置にハート爆発
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createHeartExplosion();
+                    }, i * 100);
+                }
+            }
+        });
+
+        // ハート爆発エフェクト
+        function createHeartExplosion() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-explosion';
+            heart.innerHTML = '卍';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        // 長押し検出
+        let longPressTimer;
+        document.addEventListener('mousedown', (e) => {
+            longPressTimer = setTimeout(() => {
+                createHeartExplosion();
+                // バイブレーション（対応デバイスのみ）
+                if (navigator.vibrate) {
+                    navigator.vibrate(200);
+                }
+            }, 1000);
+        });
+
+        document.addEventListener('mouseup', () => {
+            clearTimeout(longPressTimer);
+        });
+
+        // ページロード時のアニメーション
         document.addEventListener('DOMContentLoaded', function() {
-            // 要素が画面に入った時のアニメーション
+            // 既存のコード...
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -435,8 +754,7 @@
                 });
             }, observerOptions);
 
-            // アニメーション対象の要素を設定
-            document.querySelectorAll('.section, .album-card, .stat-card').forEach(el => {
+            document.querySelectorAll('.section, .album-card, .stat-card, .song-item').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(30px)';
                 el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -448,7 +766,9 @@
                 const scrolled = window.pageYOffset;
                 const rate = scrolled * -0.5;
                 const hero = document.querySelector('.hero');
-                hero.style.transform = `translateY(${rate}px)`;
+                if (hero) {
+                    hero.style.transform = `translateY(${rate}px)`;
+                }
             });
 
             // 音符のランダムアニメーション
@@ -460,6 +780,22 @@
                     note.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${Math.random() * 20 - 10}deg)`;
                 }, 3000 + index * 500);
             });
+
+            // ダブルクリックで楽曲の詳細情報表示
+            document.querySelectorAll('.album-card').forEach(card => {
+                card.addEventListener('dblclick', () => {
+                    const title = card.querySelector('h3').textContent;
+                    alert(`🎵 "${title}" について\n\nこの楽曲は多くの人に愛され続けています。あいみょんの心からのメッセージが込められた特別な一曲です。`);
+                });
+            });
+
+            // Easter Egg: 特定の時間にサプライズ
+            const now = new Date();
+            if (now.getMinutes() === now.getSeconds()) {
+                setTimeout(() => {
+                    showSecretMessage();
+                }, 3000);
+            }
         });
     </script>
 </body>
