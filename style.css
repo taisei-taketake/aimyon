@@ -1,0 +1,31 @@
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: #fffaf0;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #f08080;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+.intro {
+  padding: 2em;
+  text-align: center;
+}
+.intro img {
+  max-width: 300px;
+  border-radius: 10px;
+}
+.music {
+  padding: 1em 2em;
+}
+footer {
+  text-align: center;
+  font-size: 0.8em;
+  padding: 1em;
+  background: #eee;
+}
